@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: trident-use/automatic-workernode.html 
+keywords: beta feature, trident, automatic worker node, worker node prep, preparation, NFS, iSCSI 
+summary: Astra Trident 可以在 Kubernetes 集群中的节点上自动安装所需的 NFS 和 iSCSI 工具。 
+---
+= 自动工作节点准备
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Astra Trident可以自动安装所需的 `NFS` 和 `iSCSI` Kubernetes集群中节点上的工具。这是一项 * 测试版功能 * ， * 不适用于 * 生产集群。目前，该功能可用于运行 * CentOS ， RHEL 和 Ubuntu * 的节点。
+
+对于此功能、Astra Trident包含一个新的安装标志： `--enable-node-prep` 用于部署的安装 `tridentctl`。对于使用Trident操作符的部署、请使用布尔选项 `enableNodePrep`。
+
+
+WARNING: 。 `--enable-node-prep` 安装选项指示Astra Trident安装并确保在工作节点上挂载卷时NFS和iSCSI软件包和/或服务正在运行。这是一项 * 测试版功能 * ，用于 * 不符合生产条件 * 的开发 / 测试环境。
+
+当 `--enable-node-prep` 对于使用部署的Astra Trident安装、此标志包含在内 `tridentctl`下面是发生的情况：
+
+. 在安装过程中， Astra Trident 会注册其运行所在的节点。
+. 发出永久性卷请求（ PVC ）请求后， Astra Trident 会从其管理的后端创建 PV 。
+. 在 Pod 中使用 PVC 需要使用 Astra Trident 在 Pod 运行的节点上挂载卷。Astra Trident 会尝试安装所需的 NFS/iSCSI 客户端实用程序，并确保所需服务处于活动状态。此操作会在挂载卷之前完成。
+
+
+在首次尝试挂载卷时，只会对工作节点进行一次准备。只要Astra Trident之外的任何更改都不会触及、所有后续卷挂载都应成功 `NFS` 和 `iSCSI` 实用程序。
+
+通过这种方式， Astra Trident 可以确保 Kubernetes 集群中的所有节点都具有挂载和连接卷所需的实用程序。对于 NFS 卷，导出策略还应允许挂载该卷。Trident 可以自动管理每个后端的导出策略；用户也可以管理带外导出策略。
