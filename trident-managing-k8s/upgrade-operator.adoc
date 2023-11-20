@@ -20,7 +20,7 @@ summary: 您可以使用操作员轻松升级现有的 Astra Trident 安装。
 * 您应安装基于 CRD 的 Trident 。这表示 19.07 及更高版本的所有版本。如果您安装的是基于 CSI 的安装，则很可能是基于 CRD 的安装。
 * 如果您已卸载 CSI Trident ，并且安装中的元数据仍然存在，则可以使用操作员进行升级。
 * 在给定 Kubernetes 集群中的所有命名空间中，只应安装一个 Astra Trident 。
-* 您应使用运行的 Kubernetes 集群 link:requirements.html["1.17 及更高版本"^]。
+* 您应使用运行的 Kubernetes 集群  link:../trident-get-started/requirements.html["1.17 及更高版本"^]。
 * 如果存在alpha snapshot CRD、则应使用将其删除 `tridentctl obliviate alpha-snapshot-crd`。此操作将删除 alpha snapshot 规范的 CRD 。有关应删除 / 迁移的现有快照，请参见 https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["本博客"^]。
 
 
@@ -69,7 +69,7 @@ Version:  v20.10.1
 ----
 +
 
-NOTE: 状态显示时 `Updating`、请确保先解决此问题、然后再继续。有关可能的状态值列表，请参见 link:../trident-kubernetes/kubernetes-deploy-operator.html["此处"^]。
+NOTE: 状态显示时 `Updating`、请确保先解决此问题、然后再继续。有关可能的状态值列表，请参见 link:../trident-get-started/kubernetes-deploy-operator.html["此处"^]。
 
 . 创建 `TridentOrchestrator` 使用Trident安装程序随附的清单创建CRD。
 +
@@ -86,7 +86,7 @@ $ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1
 . 使用其清单删除命名空间范围的运算符。要完成此步骤、您需要 `bundle.yaml` 用于部署命名空间范围的运算符的文件。您可以获取 `bundle.yaml` 从 https://github.com/NetApp/trident/blob/stable/v20.10/deploy/bundle.yaml["Trident 存储库"^]。请确保使用相应的分支。
 +
 
-NOTE: 您应对Trident安装参数进行必要的更改(例如、更改的值 `tridentImage`， `autosupportImage`、私有映像存储库和提供 `imagePullSecrets`)。有关可更新的参数的完整列表，请参见 link:../trident-deploy-k8s/kubernetes-customize-deploy.html["参数列表"^]。
+NOTE: 您应对Trident安装参数进行必要的更改(例如、更改的值 `tridentImage`， `autosupportImage`、私有映像存储库和提供 `imagePullSecrets`)。有关可更新的参数的完整列表，请参见 link:../trident-get-started/kubernetes-customize-deploy.html["参数列表"^]。
 
 +
 [listing]
